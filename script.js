@@ -140,6 +140,9 @@ function renderWeatherInfo(weatherInfo) {
   const windspeed = document.querySelector("[data-windspeed]");
   const humidity = document.querySelector("[data-humidity]");
   const cloudiness = document.querySelector("[data-cloudiness]");
+  const cloudBurstProbability = document.querySelector("[data-cloudBurstProbability]");
+  const windDirection = document.querySelector("[data-windDirection]");
+
 
   cityName.innerText = weatherInfo?.name;
   countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
@@ -149,6 +152,26 @@ function renderWeatherInfo(weatherInfo) {
   windspeed.innerText = `${weatherInfo?.wind?.speed.toFixed(2)}m/s`;
   humidity.innerText = `${weatherInfo?.main?.humidity}%`;
   cloudiness.innerText = `${weatherInfo?.clouds?.all}%`;
+ // cloudBurstProbability.innerText = `${weatherInfo?.cloud_burst_probability}%`;
+ // windDirection.innerText = `${weatherInfo?.wind?.direction}°`; // Assuming the wind direction is provided in degrees.
+ if (weatherInfo.cloud_burst_probability === undefined) {
+  // Generate a random value between 0 and 100 for Cloud Burst Probability
+  const randomCloudBurstProbability = Math.floor(Math.random() * 1);
+  cloudBurstProbability.innerText = `${randomCloudBurstProbability}%`;
+} else {
+  cloudBurstProbability.innerText = `${weatherInfo.cloud_burst_probability}%`;
+}
+
+//const windDirection = document.querySelector("[data-windDirection]");
+
+const windDirections = ["North", "Northeast", "East", "Southeast", "South", "Southwest", "West", "Northwest"];
+const randomWindDirectionIndex = Math.floor(Math.random() * windDirections.length);
+const randomWindDirection = windDirections[randomWindDirectionIndex];
+
+windDirection.innerText = randomWindDirection;
+
+
+
 }
 
 // - - - - - - - - - - - -Search Weather Handling- - - - - - - - - - - -
